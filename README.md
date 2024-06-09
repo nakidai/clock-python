@@ -4,10 +4,10 @@ Simple script that prints the time as a python class. I took [this thing](https:
 
 Build & Run
 --
-Either compile `clock.c` and place it where you need or execute it directly as file is a valid shell script
+Either compile `clock.c` and place it where you need or execute it directly as the file is a valid shell script
 
 Dependencies
 --
 - `/etc/localtime` file  
 - POSIX-compatible system  
-- [`tcc`](https://bellard.org/tcc/) if you want to run code as a script
+- Either `CC` environment variable or `cc` symlink pointing to compiler if you want to run code as a script

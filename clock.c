@@ -1,4 +1,12 @@
-//usr/bin/env tcc -run "$0"; exit
+#if 0
+/usr/bin/env sh -c '                            \
+filename="/tmp/temp-$(date +%s%N)"              \
+${CC:-/usr/bin/env cc} -o "$filename" clock.c   \
+"$filename"                                     \
+rm -f "$filename"'
+exit
+#endif
+
 #include <errno.h>
 #include <stdio.h>
 #include <stdlib.h>
