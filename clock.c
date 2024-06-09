@@ -1,8 +1,8 @@
 #if 0
-/usr/bin/env sh -c '
-filename="/tmp/temp-$(date +%s%N)"
-${CC:-/usr/bin/env cc} -w -o "$filename" clock.c
-"$filename"
+/usr/bin/env sh -c '                                \
+filename="/tmp/temp-$(date +%s%N)" &&               \
+${CC:-/usr/bin/env cc} -w -o "$filename" clock.c && \
+"$filename";                                        \
 rm -f "$filename"'
 exit
 #endif
