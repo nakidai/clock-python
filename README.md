@@ -8,6 +8,6 @@ Either compile `clock.c` and place it where you need or execute it directly as t
 
 Dependencies
 --
-- `/etc/localtime` file  
+- `/etc/localtime` file containing symlink to file with current timezone  
 - POSIX-compatible system  
 - Either `CC` environment variable or `cc` symlink pointing to compiler if you want to run code as a script
