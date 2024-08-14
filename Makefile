@@ -1,2 +1,2 @@
 clock:
-clean: ; ${RM} clock
+clean: ; rm -f clock
