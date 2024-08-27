@@ -1,0 +1,7 @@
+Python clock
+------------
+Simple script that prints the time as a python class. I took thing from
+steamcommunity*.
+Also it can be ran without building if you have some c compiler on your system.
+
+* https://steamcommunity.com/sharedfiles/filedetails/?id=3258164602

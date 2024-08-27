@@ -7,17 +7,11 @@ rm -f "$filename"'
 exit
 #endif
 
-#include <errno.h>
+#define _POSIX_C_SOURCE 200112L
+
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 #include <time.h>
 #include <unistd.h>
-
-#define LOCALTImE "/etc/localtime" 
-#define TIMEZONE_LENGTH 32
-#define USERNAME_LENGTH 32
-#define lengthof(array) (sizeof(array) / sizeof(*array))
 
 char *weekdays[] = {
     "Monday",
@@ -44,41 +38,11 @@ char *months[] = {
     "December"
 };
 
-void gettimezone(char *timezone, size_t timezone_len)
+int main(void)
 {
-    char linkbuf[128], *name, *p1, *p2;
-    size_t link_len;
-
-    if ((link_len = readlink(LOCALTImE, linkbuf, sizeof(linkbuf) - 1)) < 0)
-    {
-        fprintf(stderr, "cannot read link %s: %s", LOCALTImE, strerror(errno));
-        exit(EXIT_FAILURE);
-    }
-    linkbuf[link_len] = '\0';
-
-    name = linkbuf;
-    if ((p1 = strstr(linkbuf, "zone")))
-    {
-        if ((p2 = strstr(p1 + 1, "zone")))
-            p1 = p2;
-        if ((p2 = strchr(p1, '/')))
-            name = p2 + 1;
-    }
-
-    strncpy(timezone, name, timezone_len - 1);
-}
-
-int main(int argc, char **argv)
-{
-    char timezone[TIMEZONE_LENGTH], username[USERNAME_LENGTH];
-    time_t rawtime;
-    struct tm *timeinfo;
-
-    gettimezone(timezone, lengthof(timezone));
-    getlogin_r(username, lengthof(username));
-    time(&rawtime);
-    timeinfo = localtime(&rawtime);
-
+    time_t     rawtime  = time(NULL);
+    struct tm *timeinfo = localtime(&rawtime);
+    tzset();
     printf(
         "class Clock:\n"
         "    hour: int = %d\n"
@@ -95,9 +59,7 @@ int main(int argc, char **argv)
         timeinfo->tm_mday, weekdays[timeinfo->tm_wday],
         months[timeinfo->tm_mon],
         timeinfo->tm_year + 1900,
-        timezone,
-        username
+        tzname[0],
+        getlogin()
     );
-
-    return EXIT_SUCCESS;
 }
