@@ -13,7 +13,7 @@ exit
 #include <time.h>
 #include <unistd.h>
 
-char *weekdays[] = {
+static const char *const weekdays[] = {
     "Monday",
     "Tuesday",
     "Wednesday",
@@ -23,7 +23,7 @@ char *weekdays[] = {
     "Sunday"
 };
 
-char *months[] = {
+static const char *const months[] = {
     "January",
     "February",
     "March",
@@ -40,8 +40,8 @@ char *months[] = {
 
 int main(void)
 {
-    time_t     rawtime  = time(NULL);
-    struct tm *timeinfo = localtime(&rawtime);
+    const time_t            rawtime  = time(NULL);
+    const struct tm *const  timeinfo = localtime(&rawtime);
     tzset();
     printf(
         "class Clock:\n"
